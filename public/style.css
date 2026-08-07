@@ -1,0 +1,107 @@
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0f1620;
+  color: #e8eef5;
+  margin: 0;
+  padding: 24px 12px 60px;
+}
+.wrap { max-width: 620px; margin: 0 auto; }
+h1 { font-size: 22px; margin-bottom: 20px; }
+h2 { font-size: 18px; margin-top: 40px; border-top: 1px solid #26313f; padding-top: 20px; }
+
+form {
+  background: #16202c;
+  border: 1px solid #26313f;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label { font-size: 13px; color: #9fb0c3; margin-top: 10px; }
+
+input[type="text"],
+input[type="file"],
+input[type="datetime-local"] {
+  background: #0f1620;
+  border: 1px solid #2c3947;
+  color: #e8eef5;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.radio-row { display: flex; gap: 20px; font-size: 14px; margin: 4px 0 8px; }
+.radio-row label { color: #e8eef5; margin: 0; display: flex; align-items: center; gap: 6px; }
+
+button {
+  margin-top: 18px;
+  background: #2b8cf0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: default; }
+button.secondary {
+  background: transparent;
+  border: 1px dashed #3a4b5c;
+  color: #9fb0c3;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 13px;
+  padding: 8px;
+}
+
+.bullet-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.bullet-row input { flex: 1; }
+.bullet-row button {
+  margin: 0;
+  background: #3a2020;
+  color: #ff9b9b;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+#posts-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+
+.post-card {
+  display: flex;
+  gap: 12px;
+  background: #16202c;
+  border: 1px solid #26313f;
+  border-radius: 10px;
+  padding: 10px;
+  align-items: center;
+}
+.post-card img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; background: #0f1620; }
+.post-info { flex: 1; }
+.post-info strong { display: block; font-size: 14px; }
+.post-info p { margin: 2px 0; font-size: 12px; color: #9fb0c3; }
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #2c3947;
+  color: #cfe0f0;
+  margin-right: 8px;
+}
+.status-sent .badge { background: #1e4620; color: #8ef29b; }
+.status-error .badge { background: #4a1e1e; color: #ff9b9b; }
+
+.post-info button {
+  margin-top: 6px;
+  background: transparent;
+  border: 1px solid #3a2020;
+  color: #ff9b9b;
+  font-size: 12px;
+  padding: 4px 10px;
+}
