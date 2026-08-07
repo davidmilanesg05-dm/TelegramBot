@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programador de Publicaciones - Telegram</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <h1>📅 Programador de publicaciones para Telegram</h1>
+
+  <form id="post-form">
+    <label>Imagen o video *</label>
+    <input type="file" id="media" accept="image/*,video/*" required>
+
+    <label>Sub principal (opcional)</label>
+    <input type="text" id="subtitle" placeholder="Título o subtítulo del post">
+
+    <label>Viñetas (opcional)</label>
+    <div id="bullets-container"></div>
+    <button type="button" id="add-bullet" class="secondary">➕ Añadir viñeta</button>
+
+    <label>Tipo de enlace</label>
+    <div class="radio-row">
+      <label><input type="radio" name="link_type" value="link" checked> 🔗 Link</label>
+      <label><input type="radio" name="link_type" value="install"> ⚙️ Método de instalación</label>
+    </div>
+    <input type="text" id="link_value" placeholder="URL o texto del método de instalación" required>
+
+    <label>Fecha y hora de envío *</label>
+    <input type="datetime-local" id="scheduled_at" required>
+
+    <button type="submit">Programar publicación</button>
+  </form>
+
+  <h2>Publicaciones programadas</h2>
+  <div id="posts-list"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
