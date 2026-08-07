@@ -3,7 +3,7 @@ const SUPABASE_URL = 'https://ifzjvhcbppgttsvumvmz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlmemp2aGNicHBndHRzdnVtdm16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwOTgxNDUsImV4cCI6MjEwMTY3NDE0NX0.EV87yC-eB5D7CEeI5oR_qofMvp2qtLiVwqrvb_JBpKY'; // la "anon public key", NO la service_role
 // Si el backend vive en otro dominio distinto al de esta página, pon la URL completa aquí,
 // por ejemplo: 'https://mi-backend.onrender.com'
-const API_BASE = '';
+const API_BASE = 'https://telegrambot-bhlr.onrender.com';
 // ========================================================
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
