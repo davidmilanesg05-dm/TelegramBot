@@ -136,22 +136,26 @@ app.get('/api/cron/check', async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const results = [];
+  let sent = 0;
+  let failed = 0;
   for (const post of due) {
     try {
       await sendToTelegram(post);
       await supabase.from('posts').update({ status: 'sent' }).eq('id', post.id);
-      results.push({ id: post.id, ok: true });
+      sent++;
     } catch (err) {
+      // Guardamos solo los primeros 300 caracteres del error para no llenar la base de datos
       await supabase
         .from('posts')
-        .update({ status: 'error', error_message: err.message })
+        .update({ status: 'error', error_message: String(err.message).slice(0, 300) })
         .eq('id', post.id);
-      results.push({ id: post.id, ok: false, error: err.message });
+      failed++;
     }
   }
 
-  res.json({ checked: due.length, results });
+  // Respuesta corta a propósito: cron-job.org (plan gratis) falla si la
+  // respuesta es muy grande, así que solo devolvemos un resumen.
+  res.json({ ok: true, checked: due.length, sent, failed });
 });
 
 const PORT = process.env.PORT || 3000;
