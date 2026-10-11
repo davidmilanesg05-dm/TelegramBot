@@ -7,7 +7,8 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "ollama-proxy": "node local-ollama-proxy.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

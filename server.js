@@ -38,8 +38,8 @@ const supabase = createClient(
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;
 const CRON_SECRET = process.env.CRON_SECRET;
-const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL || 'https://ollama.com').trim();
-const OLLAMA_MODEL = (process.env.OLLAMA_MODEL || 'gemma4:cloud').trim();
+const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL || 'http://127.0.0.1:11434').trim();
+const OLLAMA_MODEL = (process.env.OLLAMA_MODEL || 'llama3.2:3b').trim();
 const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY?.trim();
 
 // ---------- Utilidades ----------

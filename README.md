@@ -94,6 +94,8 @@ ollama serve
 ```
 
 En local, el backend usa `http://127.0.0.1:11434` y `llama3.2:3b` por defecto.
+Para conectar Render con el Ollama local, sigue la sección de túnel seguro
+debajo.
 
 ---
 
@@ -111,19 +113,50 @@ En local, el backend usa `http://127.0.0.1:11434` y `llama3.2:3b` por defecto.
    - `TELEGRAM_BOT_TOKEN`
    - `TELEGRAM_CHANNEL_ID`
    - `CRON_SECRET` (invéntate una clave larga, ej. `mi-clave-super-secreta-2026`)
-   - `OLLAMA_BASE_URL=https://ollama.com`
-   - `OLLAMA_MODEL` (un modelo cloud disponible en tu cuota gratuita)
-   - `OLLAMA_API_KEY` (tu clave secreta de Ollama Cloud)
 4. Dale **Create Web Service**. En unos minutos tendrás tu URL, algo como
    `https://telegram-scheduler-xxxx.onrender.com`.
-5. Crea tu clave en [Ollama Settings → Keys](https://ollama.com/settings/keys).
-   El plan gratuito de Ollama Cloud incluye una cuota de uso mensual limitada;
-   el modelo debe estar habilitado en tu cuenta. Consulta su
-   [catálogo de modelos cloud](https://ollama.com/search?c=cloud) y
-   [planes y uso](https://ollama.com/pricing). No uses `llama3.2:3b` en cloud
-   salvo que esté disponible para tu cuenta. La API key se configura solo en
-   Render, nunca en el frontend ni en GitHub. Después de configurar las
-   variables, vuelve a desplegar el servicio.
+
+### Conectar Render al Ollama de tu Mac
+
+Render no puede conectarse directamente a `localhost` de tu computadora. Para
+esta configuración, el Mac debe permanecer encendido, conectado a Internet,
+con Ollama y el túnel activos.
+
+1. Instala Cloudflare Tunnel en el Mac:
+   ```bash
+   brew install cloudflared
+   ```
+2. Genera un token privado:
+   ```bash
+   openssl rand -hex 32
+   ```
+   Copia el resultado a `OLLAMA_API_KEY` en el `.env` local y también en las
+   variables de entorno del servicio en Render. No lo publiques ni lo agregues
+   a GitHub.
+3. En una terminal, desde la carpeta del proyecto, inicia el proxy protegido:
+   ```bash
+   npm run ollama-proxy
+   ```
+4. En otra terminal inicia un túnel temporal hacia el proxy local:
+   ```bash
+   cloudflared tunnel --url http://127.0.0.1:11435
+   ```
+   Cloudflare mostrará una dirección HTTPS aleatoria que termina en
+   `trycloudflare.com`. Deja ambas terminales abiertas.
+5. En las variables de entorno de Render configura:
+   - `OLLAMA_BASE_URL`: la dirección `https://...trycloudflare.com` mostrada
+     por `cloudflared`, sin `/api/chat`.
+   - `OLLAMA_MODEL=llama3.2:3b` (o el nombre exacto de un modelo instalado,
+     que puedes consultar con `ollama list`).
+   - `OLLAMA_API_KEY`: el mismo token privado del paso 2.
+6. Guarda las variables e inicia un nuevo deploy de Render.
+
+El proxy solo escucha en loopback, acepta únicamente `/api/chat` y comprueba
+el token antes de reenviar solicitudes a Ollama. El túnel Quick Tunnel es
+temporal y no ofrece disponibilidad de producción: su dirección puede cambiar
+al reiniciarlo. Si cambia, actualiza `OLLAMA_BASE_URL` en Render y vuelve a
+desplegar. Si el Mac, Ollama o el túnel se apagan, la generación deja de
+funcionar.
 
 ⚠️ El plan gratis de Render "duerme" el servicio tras ~15 min sin tráfico.
 El siguiente paso soluciona justo eso.
