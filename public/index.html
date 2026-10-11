@@ -18,6 +18,13 @@
     <label>Sub principal (opcional)</label>
     <input type="text" id="subtitle" placeholder="Título o subtítulo del post">
 
+    <label for="source-url">Generar contenido desde una URL</label>
+    <div class="url-row">
+      <input type="url" id="source-url" placeholder="https://ejemplo.com" autocomplete="url">
+      <button type="button" id="describe-url" class="secondary">Generar con Llama 3.2</button>
+    </div>
+    <p id="url-status" class="url-status" role="status" aria-live="polite"></p>
+
     <label>Viñetas (opcional)</label>
     <div id="bullets-container"></div>
     <button type="button" id="add-bullet" class="secondary">➕ Añadir viñeta</button>

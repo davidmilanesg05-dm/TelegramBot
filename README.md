@@ -81,9 +81,19 @@ create table posts (
 ### Probar en tu computadora (opcional)
 ```bash
 npm install
-npm start
+PORT=3000 npm start
 ```
-Abre `http://localhost:3000`.
+Abre `http://localhost:3000`. Si sirves el frontend con Live Server en
+`http://localhost:5500`, deja ese servidor activo y ejecuta `PORT=3000 npm start`
+en otra terminal. La web enviará las solicitudes API a `localhost:3000`.
+Para la generación local, instala e inicia Ollama y descarga el modelo:
+
+```bash
+ollama pull llama3.2:3b
+ollama serve
+```
+
+En local, el backend usa `http://127.0.0.1:11434` y `llama3.2:3b` por defecto.
 
 ---
 
@@ -101,8 +111,19 @@ Abre `http://localhost:3000`.
    - `TELEGRAM_BOT_TOKEN`
    - `TELEGRAM_CHANNEL_ID`
    - `CRON_SECRET` (invéntate una clave larga, ej. `mi-clave-super-secreta-2026`)
+   - `OLLAMA_BASE_URL=https://ollama.com`
+   - `OLLAMA_MODEL` (un modelo cloud disponible en tu cuota gratuita)
+   - `OLLAMA_API_KEY` (tu clave secreta de Ollama Cloud)
 4. Dale **Create Web Service**. En unos minutos tendrás tu URL, algo como
    `https://telegram-scheduler-xxxx.onrender.com`.
+5. Crea tu clave en [Ollama Settings → Keys](https://ollama.com/settings/keys).
+   El plan gratuito de Ollama Cloud incluye una cuota de uso mensual limitada;
+   el modelo debe estar habilitado en tu cuenta. Consulta su
+   [catálogo de modelos cloud](https://ollama.com/search?c=cloud) y
+   [planes y uso](https://ollama.com/pricing). No uses `llama3.2:3b` en cloud
+   salvo que esté disponible para tu cuenta. La API key se configura solo en
+   Render, nunca en el frontend ni en GitHub. Después de configurar las
+   variables, vuelve a desplegar el servicio.
 
 ⚠️ El plan gratis de Render "duerme" el servicio tras ~15 min sin tráfico.
 El siguiente paso soluciona justo eso.
@@ -126,8 +147,10 @@ El siguiente paso soluciona justo eso.
 ## 6. Usar la web
 
 1. Abre tu URL de Render.
-2. Sube la imagen o video, escribe el sub principal (opcional), agrega
-   viñetas con ➕ (cada una se enviará con 📌 delante), elige si es un
+2. Sube la imagen o video. Opcionalmente, pega una URL y pulsa **Generar con
+   Llama 3.2** para completar el título y entre cuatro y cinco viñetas; puedes
+   editarlos antes de programar. También puedes escribir el subtítulo y agregar
+   viñetas con ➕ (cada una se enviará con 📌 delante). Elige si es un
    **link** 🔗 o un **método de instalación** ⚙️ y escribe su valor.
 3. Elige la fecha y hora exacta de envío.
 4. Dale **Programar publicación**. Aparecerá en la lista con estado

@@ -23,6 +23,7 @@ form {
 label { font-size: 13px; color: #9fb0c3; margin-top: 10px; }
 
 input[type="text"],
+input[type="url"],
 input[type="file"],
 input[type="datetime-local"] {
   background: #0f1620;
@@ -32,6 +33,12 @@ input[type="datetime-local"] {
   padding: 10px 12px;
   font-size: 14px;
 }
+
+.url-row { display: flex; gap: 8px; }
+.url-row input { flex: 1; min-width: 0; }
+.url-row button { white-space: nowrap; }
+.url-status { min-height: 16px; margin: 0; font-size: 12px; color: #9fb0c3; }
+.url-status.error { color: #ff9b9b; }
 
 .radio-row { display: flex; gap: 20px; font-size: 14px; margin: 4px 0 8px; }
 .radio-row label { color: #e8eef5; margin: 0; display: flex; align-items: center; gap: 6px; }
@@ -56,6 +63,10 @@ button.secondary {
   font-weight: 400;
   font-size: 13px;
   padding: 8px;
+}
+
+@media (max-width: 480px) {
+  .url-row { flex-direction: column; }
 }
 
 .bullet-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
